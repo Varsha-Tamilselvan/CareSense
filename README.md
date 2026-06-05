@@ -68,17 +68,17 @@ http://127.0.0.1:5000
 
 ### Home Page
 
-![Home Page](screenshots/home.png)
+![Home Page](static/screenshots/home.png)
 
 
 
 ### Patient Records Dashboard
 
-![Patient Records](screenshots/dashboard.png)
+![Patient Records](static/screenshots/dashboard.png)
 
 ### AI-Generated Remarks
 
-![AI Remarks](screenshots/remarks.png)
+![AI Remarks](static/screenshots/remarks.png)
 
 
 
