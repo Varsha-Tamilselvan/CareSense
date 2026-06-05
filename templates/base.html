@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}CareSense{% endblock %} — Patient Records</title>
+  <meta name="description" content="CareSense Patient Record Management System — Smarter Records, Better Care.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <!-- Sidebar Navigation -->
+  <nav>
+    <ul>
+      <li class="logo"><img src="{{ url_for('static', filename='ChatGPT Image Jun 4, 2026, 05_16_56 PM.png') }}"
+          alt="CareSense Logo"></li>
+      <li>
+        <p class="sidebar-brand">CareSense</p>
+      </li>
+      <li>
+        <p class="sidebar-tagline">Smarter Records. Better Care.</p>
+      </li>
+      <li>
+        <hr class="sidebar-divider">
+      </li>
+      <li><a href="{{ url_for('home') }}" class="{% if active_page == 'home' %}active{% endif %}"><i
+            class="fa fa-home"></i>&nbsp;Home</a></li>
+      <li><a href="{{ url_for('database') }}" class="{% if active_page == 'database' %}active{% endif %}"><i
+            class="fa fa-database"></i>&nbsp;Patient Database</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="wrapper">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }} fade-in">
+      <i
+        class="fa {% if category == 'error' %}fa-exclamation-circle{% elif category == 'success' %}fa-check-circle{% else %}fa-info-circle{% endif %}"></i>
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  {% block scripts %}{% endblock %}
+  <script>
+    // Prevent future dates in all date inputs
+    document.addEventListener("DOMContentLoaded", function() {
+      const today = new Date().toISOString().split('T')[0];
+      const dateInputs = document.querySelectorAll('input[type="date"]');
+      dateInputs.forEach(function(input) {
+        input.setAttribute('max', today);
+      });
+    });
+  </script>
+</body>
+
+</html>

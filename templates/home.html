@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1>Welcome to CareSense</h1>
+  <p>Manage patient records with AI-powered health insights</p>
+</div>
+
+<div class="home-cards">
+  <!-- Add New Patient Card -->
+  <a href="{{ url_for('add_patient') }}" class="action-card fade-in fade-in-delay-1" id="add-patient-card">
+    <div class="card-icon add">
+      <i class="fa fa-user-plus"></i>
+    </div>
+    <h2>Add New Patient</h2>
+    <p>Register a new patient and capture their lab results. Our AI assistant will generate an intelligent health
+      summary based on their data.</p>
+    <span class="card-btn primary">
+      Get Started <i class="fa fa-arrow-right"></i>
+    </span>
+  </a>
+
+  <!-- Check Patient Card -->
+  <a href="{{ url_for('check_patient') }}" class="action-card fade-in fade-in-delay-2" id="check-patient-card">
+    <div class="card-icon search">
+      <i class="fa fa-search"></i>
+    </div>
+    <h2>Check Patient</h2>
+    <p>Look up an existing patient record using their name and date of birth. View, edit, or manage their complete
+      health profile.</p>
+    <span class="card-btn secondary">
+      Search Records <i class="fa fa-arrow-right"></i>
+    </span>
+  </a>
+</div>
+{% endblock %}

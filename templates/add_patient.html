@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Add Patient{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1>Add New Patient</h1>
+  <p>Enter patient information and lab results to create a new record</p>
+</div>
+
+<div class="form-card fade-in fade-in-delay-1">
+  <form method="POST" action="{{ url_for('add_patient') }}" id="add-patient-form">
+
+    <!-- Personal Information -->
+    <div class="form-section-title">
+      <i class="fa fa-user"></i> Personal Information
+    </div>
+
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="e.g. John Doe" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      </div>
+    </div>
+
+    <!-- Lab Results -->
+    <div class="form-section-title">
+      <i class="fa fa-flask"></i> Lab Results
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="glucose">Glucose (mg/dL)</label>
+        <input type="number" step="0.01" id="glucose" name="glucose" placeholder="e.g. 95.0" required>
+      </div>
+      <div class="form-group">
+        <label for="hemoglobin">Hemoglobin (g/dL)</label>
+        <input type="number" step="0.01" id="hemoglobin" name="hemoglobin" placeholder="e.g. 14.5" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cholesterol">Cholesterol (mg/dL)</label>
+      <input type="number" step="0.01" id="cholesterol" name="cholesterol" placeholder="e.g. 180.0" required>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" id="save-patient-btn">
+        <i class="fa fa-check"></i> Save Patient
+      </button>
+      <a href="{{ url_for('home') }}" class="btn btn-outline">
+        <i class="fa fa-times"></i> Cancel
+      </a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

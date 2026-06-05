@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}{{ patient.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1>Patient Record</h1>
+  <p>Viewing complete health profile and AI-generated summary</p>
+</div>
+
+<div class="detail-card fade-in fade-in-delay-1">
+
+  <!-- Patient Header -->
+  <div class="detail-header">
+    <div class="detail-avatar">
+      {{ patient.name[0] | upper }}
+    </div>
+    <div class="detail-header-info">
+      <h2>{{ patient.name }}</h2>
+      <span><i class="fa fa-calendar"></i>&nbsp; Born {{ patient.dob.strftime('%B %d, %Y') }} &nbsp;|&nbsp; <i class="fa fa-envelope"></i>&nbsp; {{ patient.email }}</span>
+    </div>
+  </div>
+
+  <!-- Lab Results Grid -->
+  <div class="form-section-title">
+    <i class="fa fa-flask"></i> Lab Results
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-item">
+      <div class="label">Glucose</div>
+      <div class="value">{{ patient.glucose }} mg/dL</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Hemoglobin</div>
+      <div class="value">{{ patient.hemoglobin }} g/dL</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Cholesterol</div>
+      <div class="value">{{ patient.cholesterol }} mg/dL</div>
+    </div>
+    <div class="detail-item">
+      <div class="label">Record ID</div>
+      <div class="value">#{{ patient.id }}</div>
+    </div>
+  </div>
+
+  <!-- AI Remark -->
+  {% if patient.remarks %}
+  <div class="remark-card">
+    <div class="remark-title">
+      <i class="fa fa-lightbulb-o"></i> AI Health Summary (Ollama)
+    </div>
+    <div class="remark-text">
+      {{ patient.remarks }}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Action Buttons -->
+  <div class="btn-group">
+    <a href="{{ url_for('edit_patient', patient_id=patient.id) }}" class="btn btn-secondary" id="edit-btn">
+      <i class="fa fa-pencil"></i> Edit Record
+    </a>
+    <button class="btn btn-danger" id="delete-btn" onclick="document.getElementById('delete-modal').classList.add('active')">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+    <a href="{{ url_for('database') }}" class="btn btn-outline">
+      <i class="fa fa-arrow-left"></i> All Records
+    </a>
+  </div>
+
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-box">
+    <h3>Delete Patient Record?</h3>
+    <p>This will permanently remove <strong>{{ patient.name }}</strong>'s record. This action cannot be undone.</p>
+    <div class="btn-group" style="justify-content: center;">
+      <form method="POST" action="{{ url_for('delete_patient', patient_id=patient.id) }}">
+        <button type="submit" class="btn btn-danger" id="confirm-delete-btn">
+          <i class="fa fa-trash"></i> Yes, Delete
+        </button>
+      </form>
+      <button class="btn btn-outline" onclick="document.getElementById('delete-modal').classList.remove('active')">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

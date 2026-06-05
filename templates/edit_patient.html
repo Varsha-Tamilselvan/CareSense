@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Edit — {{ patient.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1>Edit Patient Record</h1>
+  <p>Update information for <strong>{{ patient.name }}</strong></p>
+</div>
+
+<div class="form-card fade-in fade-in-delay-1">
+  <form method="POST" action="{{ url_for('edit_patient', patient_id=patient.id) }}" id="edit-patient-form">
+
+    <!-- Personal Information -->
+    <div class="form-section-title">
+      <i class="fa fa-user"></i> Personal Information
+    </div>
+
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" value="{{ patient.name }}" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" value="{{ patient.dob.strftime('%Y-%m-%d') }}" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" value="{{ patient.email }}" required>
+      </div>
+    </div>
+
+    <!-- Lab Results -->
+    <div class="form-section-title">
+      <i class="fa fa-flask"></i> Lab Results
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="glucose">Glucose (mg/dL)</label>
+        <input type="number" step="0.01" id="glucose" name="glucose" value="{{ patient.glucose }}" required>
+      </div>
+      <div class="form-group">
+        <label for="hemoglobin">Hemoglobin (g/dL)</label>
+        <input type="number" step="0.01" id="hemoglobin" name="hemoglobin" value="{{ patient.hemoglobin }}" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cholesterol">Cholesterol (mg/dL)</label>
+      <input type="number" step="0.01" id="cholesterol" name="cholesterol" value="{{ patient.cholesterol }}" required>
+    </div>
+
+    <!-- Current AI Remark -->
+    {% if patient.remarks %}
+    <div class="remark-card">
+      <div class="remark-title">
+        <i class="fa fa-lightbulb-o"></i> Current AI Summary
+      </div>
+      <div class="remark-text">{{ patient.remarks }}</div>
+    </div>
+    <p style="font-size: 12px; color: var(--text-light); margin-top: -15px; margin-bottom: 10px;">
+      <i class="fa fa-info-circle"></i> AI summary will be regenerated on save if lab values change.
+    </p>
+    {% endif %}
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary" id="update-btn">
+        <i class="fa fa-save"></i> Update Record
+      </button>
+      <a href="{{ url_for('patient_detail', patient_id=patient.id) }}" class="btn btn-outline">
+        <i class="fa fa-times"></i> Cancel
+      </a>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

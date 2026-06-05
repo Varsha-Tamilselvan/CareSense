@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Check Patient{% endblock %}
+
+{% block content %}
+<div class="page-header fade-in">
+  <h1>Check Patient Record</h1>
+  <p>Search for an existing patient by name and date of birth</p>
+</div>
+
+<div class="form-card fade-in fade-in-delay-1">
+  <form method="POST" action="{{ url_for('check_patient') }}" id="check-patient-form">
+
+    <div class="form-section-title">
+      <i class="fa fa-search"></i> Search Criteria
+    </div>
+
+    <div class="form-group">
+      <label for="name">Patient Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter patient's full name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" name="dob" required>
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-secondary" id="search-btn">
+        <i class="fa fa-search"></i> Search
+      </button>
+      <a href="{{ url_for('home') }}" class="btn btn-outline">
+        <i class="fa fa-arrow-left"></i> Back
+      </a>
+    </div>
+
+  </form>
+</div>
+
+{% if not_found %}
+<div class="no-record fade-in fade-in-delay-2" style="margin-top: 30px;">
+  <i class="fa fa-user-times"></i>
+  <h3>No Patient Record Found</h3>
+  <p>We couldn't find a patient matching that name and date of birth in our database.</p>
+  <a href="{{ url_for('add_patient') }}" class="btn btn-primary" id="add-from-search-btn">
+    <i class="fa fa-user-plus"></i> Add New Patient
+  </a>
+</div>
+{% endif %}
+{% endblock %}
