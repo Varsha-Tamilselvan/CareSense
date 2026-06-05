@@ -78,7 +78,7 @@ http://127.0.0.1:5000
 
 ### AI-Generated Remarks
 
-![AI Remarks](static/screenshots/remarks.png)
+![AI Remarks](static/screenshots/remark.png)
 
 
 
